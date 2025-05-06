@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Interaction/EnemyInterface.h"
 
 #include "AuraPlayerController.generated.h"
 
@@ -19,6 +20,7 @@ class AURA_API AAuraPlayerController : public APlayerController
 public:
 	AAuraPlayerController();
 protected:
+	virtual void PlayerTick(float DeltaTime) override;
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 private:
@@ -29,4 +31,9 @@ private:
 	TObjectPtr<UInputAction> MoveAction;
 
 	void Move(const FInputActionValue& InputActionValue);
+
+	void CursorTrace();
+
+	TScriptInterface<IEnemyInterface> LastActor;
+	TScriptInterface<IEnemyInterface> ThisActor;
 };
